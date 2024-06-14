@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<?fdxml load="proto.scm" piescape="=" ?>
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+  <head> 
+    <?= (unless (cgiget 'olib #F) (cgiset! 'olib "OL2588416M"))
+        (unless (cgiget 'leaf #F) (cgiset! 'leaf 17))
+     ?>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+    <title><?= (olib/get olib 'title) ?></title>
+    <link rel="stylesheet" type="text/css" href="proto.css"/>
+    <meta name="IMGTEMPLATE" content="$(getpageurl olib)"/>
+    <script language="javascript" src="proto.js"></script>
+  </head> 
+  <body onload="init(); gotoPage();" data-startpage="$leaf"> 
+    <form action="proto.fdxml"> 
+      Enter OLIB identifier (e.g. OL13684064M) and leaf (~page) number:<br /> 
+      <input type="text" NAME= "OLIB"
+	     value="$OLIB" style="width: 70%" />
+      <input type="text" NAME= "LEAF" ID="PAGEINPUT"
+	     value="$(-&gt;NUMBER LEAF)" style="width: 15%"
+	     onkeypress="leaf_keypress(event);"/>
+      <input type="submit" />
+    </form>
+    <div class="bookMeta">
+      <a href="$(GETBOOKLINK OLIB)" target="_blank"><?= (olib/get olib 'title)?></a>
+      by <a href="$(GETAUTHORLINK (PICK-ONE (olib/get olib 'authors)))" target="_blank">
+	<?= (olib/get (olib/get olib 'authors) 'name)?></a>,
+      page <span id="PAGEDISPLAY"><?= (-&gt;number leaf)?></span>
+      &nbsp;&nbsp;&nbsp;
+      <a href="javascript:gotoPage(pageno-1);">&lt;&nbsp;prev</a>
+      &nbsp;| <a href="javascript:gotoPage(pageno+1);">next &gt;</a>
+      <?= olib ?>
+      <span class="button" onclick="toggleClass(document.body,'showpages')"
+	    id="PAGESBUTTON">
+	pages</span>
+      <span class="button" onclick="toggleClass(document.body,'showhidden')"
+	    id="HIDDENBUTTON">
+	hidden</span>
+      <span class="button" onclick="toggleClass(document.body,'showlines')"
+	    id="LINESBUTTON">
+	line info</span>
+      <span class="button" onclick="toggleClass(document.body,'showblocks')"
+	    id="BLOCKSBUTTON">
+	blocks</span>
+      <span class="button" onclick="toggleClass(document.body,'showbreaks')"
+	    id="BREAKSBUTTON">
+	breaks</span>
+    </div> 
+    <table class="sideByside"> 
+      <tr> 
+	<!--
+        <td class="pageImage"><img src="http://ia600109.us.archivestream.github.io/BookReader/BookReaderImages.php?zip=/4/items/handofethelberta01hard/handofethelberta01hard_jp2.zip&file=handofethelberta01hard_jp2/handofethelberta01hard_0022.jp2&scale=4&rotate=0" ID="PAGEIMAGE"/> </td> 
+	-->
+        <td class="pageImage">
+	  <img src="$(getpageurl olib (-&gt;number leaf))"
+	       ID="PAGEIMAGE"/>
+	</td> 
+        <td class="pageText" id="PAGETEXT">
+	<showtext olib="$OLIB"/>
+	</td> 
+      </tr> 
+    </table> 
+  </body> 
+</html> 
