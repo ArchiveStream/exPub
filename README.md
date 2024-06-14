@@ -1,4 +1,4 @@
-# xpub
+# exPub
 
 # Code for creating expub files.
 
