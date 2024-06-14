@@ -1,6 +1,4 @@
-# exPub - For code related to making exPub files
-
-# Code for creating expub files.
+# exPub - Code for creating expub files.
 
 ```
 'expub.py' may be of general use.
