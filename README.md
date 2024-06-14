@@ -1,4 +1,4 @@
-# exPub
+# exPub - For code related to making exPub files
 
 # Code for creating expub files.
 
